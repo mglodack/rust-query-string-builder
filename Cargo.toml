@@ -1,0 +1,6 @@
+[package]
+name = "query-string-builder"
+version = "0.1.0"
+authors = ["Mathew Glodack <glodack@gmail.com>"]
+
+[dependencies]
