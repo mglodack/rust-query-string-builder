@@ -6,16 +6,20 @@ pub fn build_query(params: Vec<(&str, &str)>) -> String {
         .fold(
              _initialize_query(params.first()),
              | mut query, kvp | {
-                query.push_str(&format!("&{0}={1}", kvp.0, kvp.1));
+                query.push_str(&_assign("&", kvp));
                 query
              })
 }
 
 fn _initialize_query(kvp: Option<&(&str, &str)>) -> String {
     match kvp {
-        Some(kvp) => format!("?{0}={1}", kvp.0, kvp.1),
+        Some(kvp) => _assign("?", kvp),
         None => String::new()
     }
+}
+
+fn _assign(separator: &str, kvp: &(&str, &str)) -> String {
+    format!("{0}{1}={2}", separator, kvp.0, kvp.1)
 }
 
 #[cfg(test)]
