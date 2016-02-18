@@ -4,9 +4,9 @@ pub fn build_query(params: Vec<(&str, &str)>) -> String {
     params.iter()
         .skip(1)
         .fold(
-             _map_kvp("?", params.first()),
+             _format_kvp_opt("?", params.first()),
              | mut query, kvp | {
-                query.push_str(&_map_kvp("&", Some(kvp)));
+                query.push_str(&_format_kvp_opt("&", Some(kvp)));
                 query
              })
 }
