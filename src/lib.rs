@@ -4,21 +4,22 @@ pub fn build_query(params: Vec<(&str, &str)>) -> String {
     params.iter()
         .skip(1)
         .fold(
-             _initialize_query(params.first()),
+             _map_kvp("?", params.first()),
              | mut query, kvp | {
-                query.push_str(&_assign("&", kvp));
+                query.push_str(&_map_kvp("&", Some(kvp)));
                 query
              })
 }
 
-fn _initialize_query(kvp: Option<&(&str, &str)>) -> String {
+// TODO: Fix this name
+fn _map_kvp(separator: &str, kvp: Option<&(&str, &str)>) -> String {
     match kvp {
-        Some(kvp) => _assign("?", kvp),
+        Some(kvp) => _format_kvp(separator, kvp),
         None => String::new()
     }
 }
 
-fn _assign(separator: &str, kvp: &(&str, &str)) -> String {
+fn _format_kvp(separator: &str, kvp: &(&str, &str)) -> String {
     format!("{0}{1}={2}", separator, kvp.0, kvp.1)
 }
 
