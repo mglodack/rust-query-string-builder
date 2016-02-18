@@ -11,8 +11,7 @@ pub fn build_query(params: Vec<(&str, &str)>) -> String {
              })
 }
 
-// TODO: Fix this name
-fn _map_kvp(separator: &str, kvp: Option<&(&str, &str)>) -> String {
+fn _format_kvp_opt(separator: &str, kvp: Option<&(&str, &str)>) -> String {
     match kvp {
         Some(kvp) => _format_kvp(separator, kvp),
         None => String::new()
@@ -34,7 +33,7 @@ mod tests {
     }
 
     #[test]
-    fn it_works() {
+    fn build_query_with_multipls_params() {
         let params = vec![("key1", "value1"), ("key2", "value2")];
         assert_eq!("?key1=value1&key2=value2", build_query(params))
     }
