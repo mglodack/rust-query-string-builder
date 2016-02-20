@@ -1,4 +1,8 @@
-pub fn build_query(params: Vec<(&str, &str)>) -> String {
+pub fn build_url_string(url: &str, query_string: &str) -> String {
+    format!("{0}{1}", url, query_string)
+}
+
+pub fn build_query_string(params: Vec<(&str, &str)>) -> String {
     if params.is_empty() { return String::new() }
 
     params.iter()
@@ -26,21 +30,45 @@ fn _format_kvp(separator: &str, kvp: &(&str, &str)) -> String {
 mod tests {
     use super::*;
 
+    static  URL: &'static str = "http://weirddomain.com/";
+
     #[test]
     fn build_query_with_single_kvp() {
         let params = vec![("key1", "value1")];
-        assert_eq!("?key1=value1", build_query(params))
+        assert_eq!("?key1=value1", build_query_string(params))
     }
 
     #[test]
     fn build_query_with_multipls_params() {
         let params = vec![("key1", "value1"), ("key2", "value2")];
-        assert_eq!("?key1=value1&key2=value2", build_query(params))
+        assert_eq!("?key1=value1&key2=value2", build_query_string(params))
     }
 
     #[test]
     fn empty_vector_returns_emtpy_string() {
         let params: Vec<(&str, &str)> = Vec::new();
-        assert_eq!(String::new(), build_query(params))
+        assert_eq!(String::new(), build_query_string(params))
+    }
+
+    #[test]
+    fn build_url_string_with_multiple_params()
+    {
+        let params = vec![("user_id", "1"), ("apple_no", "8")];
+
+        let query_string = build_query_string(params);
+        assert_eq!(
+            "http://weirddomain.com/?user_id=1&apple_no=8",
+            build_url_string(URL, &query_string))
+    }
+
+    #[test]
+    fn build_url_string_with_emtpy_params()
+    {
+        let params: Vec<(&str, &str)> = Vec::new();
+        let query_string = build_query_string(params);
+
+        assert_eq!(
+            URL,
+            build_url_string(URL, &query_string))
     }
 }
