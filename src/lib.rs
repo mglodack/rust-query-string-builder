@@ -39,7 +39,7 @@ mod tests {
     }
 
     #[test]
-    fn build_query_with_multipls_params() {
+    fn build_query_with_multiple_params() {
         let params = vec![("key1", "value1"), ("key2", "value2")];
         assert_eq!("?key1=value1&key2=value2", build_query_string(params))
     }
