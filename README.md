@@ -2,6 +2,15 @@
 
 [![Build Status](https://travis-ci.org/mglodack/rust-query-string-builder.svg?branch=master)](https://travis-ci.org/mglodack/rust-query-string-builder)
 
+#### How to reference
+
+Currently, this does not have a crate.
+
+For now, you can add the following to you Cargo.toml file
+```rust
+query-string-builder = { git = "https://github.com/mglodack/rust-query-string-builder.git" }
+```
+
 #### How to use
 
 ```rust
@@ -17,7 +26,7 @@ fn create_auth_query_string() -> String {
       ("client_id", "123456"),
       ("client_secret", "secret")
     ];
-    
+
   build_query_string(params)
 }
 
